@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajx + Github</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h1>Github</h1>
+
+
+
+        <button onclick="recuperarDados()">recuperar Dados</button>
+
+        <br />
+        <br />
+    </div>
+
+    <script type="text/javascript">
+
+        //chamada da função API
+
+        var elementoApp = document.getElementById( "app" )
+
+        function recuperarDados() {
+            var xhr = new XMLHttpRequest()
+            // 1 -  metodo da info 2 -  endereço usado
+            xhr.open("GET", "https://api.github.com/users/WhyDrugs")
+            xhr.send(null)
+            
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4){
+                    var resp = JSON.parse(xhr.responseText)
+
+                    var nome = resp.name
+                    var avatar = resp.avatar_url
+                    var repos = resp.public_repos
+
+
+                    var elemetoAvatar = document.createElement("img")
+                    elemetoAvatar.setAttribute("width", "128")
+                    elemetoAvatar.setAttribute("src", avatar)
+
+                    var elemetoNome = document.createElement("p")
+                    elemetoNome.innerText = nome
+
+                    var elemetoRepos = document.createElement("p")
+                    elemetoRepos.innerText = repos
+
+                    elementoApp.appendChild(elemetoAvatar)
+                    elementoApp.appendChild(elemetoNome)
+                    elementoApp.appendChild(elemetoRepos)
+
+
+                }
+            }
+
+
+        }
+
+    </script>
+
+</body>
+
+</html>
